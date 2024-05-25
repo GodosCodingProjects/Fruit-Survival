@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static Food;
 using Random = UnityEngine.Random;
 
 public class TextUpdater : MonoBehaviour
