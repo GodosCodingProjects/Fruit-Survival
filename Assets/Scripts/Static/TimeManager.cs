@@ -72,10 +72,10 @@ public class TimeManager : MonoBehaviour
 		CurrentTime = new DateTime(2000, 1, 1, 8, 0, 0);
 		undisplayedMinutes = 0;
 
-		Debug.Log("It's way past your bedtime! You fainted...\n\n" +
-			"Would you look at that?" +
-			"You woke up later than usual and you feel very tired." +
-			"\nMaybe go to bed on time tonight?");
+		//Debug.Log("It's way past your bedtime! You fainted...\n\n" +
+		//	"Would you look at that?" +
+		//	"You woke up later than usual and you feel very tired." +
+		//	"\nMaybe go to bed on time tonight?");
 		PlayerManager.AddHealth(-20);
 		PlayerManager.AddBelly(-20);
 

@@ -17,7 +17,7 @@ public class CampsiteManager : MonoBehaviour
 				PlayerManager.foodInventory.Add(gardenContent[i]);
 				PlayerManager.foodInventory.Add(gardenContent[i]);
 
-				Debug.Log("Your patience bears fruits (litteraly)");
+				//Debug.Log("Your patience bears fruits (litteraly)");
 			}
 
 			MapProperties.SetGarden(i, -1);
