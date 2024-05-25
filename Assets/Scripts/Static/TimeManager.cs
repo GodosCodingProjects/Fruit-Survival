@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour
 {
-    DateTime currentTime;
+	public static DateTime CurrentTime { get; private set; }
 
 	[SerializeField]
 	TextMeshProUGUI txtTime;
@@ -21,25 +21,25 @@ public class TimeManager : MonoBehaviour
 		EventManager.OnSetTime += SetTime;
 		EventManager.OnSleep += Sleep;
 
-		currentTime = new DateTime(2000, 1, 1, 6, 0, 0);
+		CurrentTime = new DateTime(2000, 1, 1, 6, 0, 0);
 		Display();
 	}
 
 	void Display()
 	{
-		txtTime.text = "-Time-\n" + currentTime.ToString("HH:mm");
+		txtTime.text = "-Time-\n" + CurrentTime.ToString("HH:mm");
 	}
 
 	void Sleep()
     {
-		currentTime = new DateTime(2000, 1, 1, 6, 0, 0);
+		CurrentTime = new DateTime(2000, 1, 1, 6, 0, 0);
 		undisplayedMinutes = 0;
 		Display();
     }
 
 	void SetTime(DateTime time)
 	{
-		currentTime = time;
+		CurrentTime = time;
 		Display();
 	}
 
@@ -57,11 +57,11 @@ public class TimeManager : MonoBehaviour
 
 	void DisplayIncrements(int increments)
 	{
-		currentTime = currentTime.AddMinutes(increments * MINIMAL_INCREMENT);
+		CurrentTime = CurrentTime.AddMinutes(increments * MINIMAL_INCREMENT);
 		PlayerManager.AddBelly(-increments);
 
 		// Player went over their max bedtime
-		if(currentTime.Day > 1) // fainting
+		if(CurrentTime.Day > 1) // fainting
 		{
 			PassOut();
 		}
@@ -71,7 +71,7 @@ public class TimeManager : MonoBehaviour
 
 	void PassOut()
 	{
-		currentTime = new DateTime(2000, 1, 1, 8, 0, 0);
+		CurrentTime = new DateTime(2000, 1, 1, 8, 0, 0);
 		undisplayedMinutes = 0;
 
 		Debug.Log("It's way past your bedtime! You fainted...\n\n" +

@@ -5,16 +5,29 @@ using UnityEngine;
 
 public class SleepButton : MonoBehaviour
 {
+	IEnumerator currentSleep = null;
+
 	public void OnClick()
 	{
-		if(!MapProperties.GetBuiltTent())
+		if(currentSleep == null)
 		{
-			MapProperties.BuiltTent();
-			//return;
-		}
+			if(!MapProperties.GetBuiltTent())
+			{
+				MapProperties.BuiltTent();
+				//return;
+			}
 
-		if(EventManager.OnSleep != null)
-			EventManager.OnSleep();
+			if(EventManager.OnSleep != null)
+				EventManager.OnSleep();
+
+			currentSleep = Sleep();
+			StartCoroutine(currentSleep);
+		}
+	}
+
+	IEnumerator Sleep()
+	{
+		yield return new WaitForSeconds(2.5f);
 
 		float rand = Random.value;
 		if(rand < 0.2f)
@@ -27,5 +40,6 @@ public class SleepButton : MonoBehaviour
 		}
 
 		SceneLoadHelper.UnloadScene(gameObject.scene.name);
+		currentSleep = null;
 	}
 }

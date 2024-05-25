@@ -9,8 +9,11 @@ public class PlayerMover : MonoBehaviour
 	public float zOrder = -2;
 
 	[SerializeField]
-	private float speed = 3;
-	private IEnumerator currentMove;
+	float speed = 3;
+	IEnumerator currentMove;
+
+	[SerializeField]
+	AudioSource footstepsAudio;
 
 	public void Init()
 	{
@@ -42,6 +45,8 @@ public class PlayerMover : MonoBehaviour
 
 	IEnumerator MoveOverTime(Vector3 position)
 	{
+		footstepsAudio.Play();
+
 		Vector3 initialPos = transform.position;
 
 		bool eventWasTriggered = false;
@@ -62,14 +67,16 @@ public class PlayerMover : MonoBehaviour
 						(InGameEventManager.InGameEvent)Random.Range(0, 4)
 						+ (int)InGameEventManager.InGameEvent.SAD;
 					InGameEventManager.DisplayEvent(randEvent);
+					footstepsAudio.Pause();
 					yield return new WaitUntil(() => { return !InGameEventManager.IsOpened(); });
+					footstepsAudio.Play();
 				}
 
 				eventWasTriggered = true;
 			}
 
 			if(EventManager.OnAddMinutes != null)
-				EventManager.OnAddMinutes(3);
+				EventManager.OnAddMinutes((int)Mathf.Ceil(speed));
 
 			yield return null;
 		}
@@ -86,6 +93,8 @@ public class PlayerMover : MonoBehaviour
 			currentMove = null;
 			yield return null;
 		}
+
+		footstepsAudio.Stop();
 
 		currentMove = null;
 		SceneLoadHelper.LoadScene("Campsite");

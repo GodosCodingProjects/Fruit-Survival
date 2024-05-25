@@ -22,7 +22,10 @@ public class TextUpdater : MonoBehaviour
 	List<GameObject> buttons;
 
 	[SerializeField]
-	private Sprite[] fruitSprites;
+	Sprite[] fruitSprites;
+
+	[SerializeField]
+	AudioSource eatingSource;
 
 	void Start()
 	{
@@ -75,6 +78,7 @@ public class TextUpdater : MonoBehaviour
 			foodItem.transform.localPosition = new Vector3(-100, -(130 + 70 * i), 0);
 			buttons.Add(foodItem);
 			foodItem.GetComponent<FoodButton>().foodType = (Food.foods)food;
+			foodItem.GetComponent<FoodButton>().eatingSource = eatingSource;
 		}
 	}
 

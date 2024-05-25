@@ -14,6 +14,9 @@ public class InGameEventManager : MonoBehaviour
 	[SerializeField]
 	PlayerMover playerMover;
 
+	[SerializeField]
+	AudioSource openSource;
+
 	void Start()
 	{
 		if(instance == null)
@@ -126,6 +129,8 @@ public class InGameEventManager : MonoBehaviour
 
 	public static void DisplayEvent(InGameEvent e)
     {
+		instance.openSource.Play();
+
 		instance.popup.gameObject.SetActive(true);
 		instance.popup.DisplayEvent(
 			messages[(int)e],
