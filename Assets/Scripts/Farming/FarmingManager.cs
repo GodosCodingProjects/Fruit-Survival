@@ -9,9 +9,6 @@ public class FarmingManager : MonoBehaviour
 	[SerializeField]
 	FruitGOGenerator fruitGenerator;
 
-	[SerializeField]
-	AudioSource shovelSource;
-
 	void Start()
 	{
 		// Spawn the fruits inside the magnets
@@ -43,7 +40,6 @@ public class FarmingManager : MonoBehaviour
 					MapProperties.SetGarden(i, -1);
 					if(EventManager.OnInventoryChange != null)
 						EventManager.OnInventoryChange();
-					shovelSource.Play();
 				}
 			}
             else if((int)magnets[i].fruit.fruitType != MapProperties.GetGarden()[i])
@@ -53,7 +49,6 @@ public class FarmingManager : MonoBehaviour
 				MapProperties.SetGarden(i, (int)magnets[i].fruit.fruitType);
 				if(EventManager.OnInventoryChange != null)
 					EventManager.OnInventoryChange();
-				shovelSource.Play();
 			}
 		}
     }

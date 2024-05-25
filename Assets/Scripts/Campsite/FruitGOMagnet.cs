@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class FruitGOMagnet : MonoBehaviour
 {
+	[HideInInspector]
 	public FruitGO fruit;
+
+	[SerializeField]
+	AudioSource addSource;
+	[SerializeField]
+	AudioSource removeSource;
 
 	void OnTriggerEnter(Collider collider)
 	{
@@ -26,6 +32,7 @@ public class FruitGOMagnet : MonoBehaviour
 		{
 			this.fruit = fruit;
 			DragManager.RemoveMagnet(this);
+			addSource.Play();
 		}
 	}
 
@@ -34,6 +41,7 @@ public class FruitGOMagnet : MonoBehaviour
 		if(this.fruit == fruit)
 		{
 			this.fruit = null;
+			removeSource.Play();
 		}
 	}
 }

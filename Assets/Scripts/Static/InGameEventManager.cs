@@ -16,6 +16,8 @@ public class InGameEventManager : MonoBehaviour
 
 	[SerializeField]
 	AudioSource openSource;
+	[SerializeField]
+	AudioSource[] eventSources;
 
 	void Start()
 	{
@@ -130,6 +132,10 @@ public class InGameEventManager : MonoBehaviour
 	public static void DisplayEvent(InGameEvent e)
     {
 		instance.openSource.Play();
+		if(instance.eventSources[((int)e)])
+		{
+			instance.eventSources[((int)e)].Play();
+		}
 
 		instance.popup.gameObject.SetActive(true);
 		instance.popup.DisplayEvent(
