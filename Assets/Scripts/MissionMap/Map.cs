@@ -46,6 +46,9 @@ public class Map : MonoBehaviour
 
 	public static void CheckMovePlayer(Pos pos)
 	{
+		if(InGameEventManager.IsOpened())
+			return;
+
 		if(!instance.goingBackwards)
 		{
 			if(pos.Row == instance.player.pos.Row + 1 &&
@@ -76,7 +79,7 @@ public class Map : MonoBehaviour
 	public static void StartMovingBackwards()
 	{
 		instance.goingBackwards = true;
-		Debug.Log("Going Backwards now");
+		instance.player.transform.Rotate(new Vector3(0, 0, 1), 180);
 	}
 
 	void Awake()

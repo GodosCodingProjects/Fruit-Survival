@@ -46,7 +46,6 @@ public static class PlayScene
 	{
 		if(EditorBuildSettings.scenes.Length == 0)
 		{
-			Debug.LogWarning("The scene build list is empty. Can't play from first scene.");
 			return;
 		}
 

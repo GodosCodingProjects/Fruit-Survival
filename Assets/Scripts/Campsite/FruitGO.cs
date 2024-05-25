@@ -30,7 +30,6 @@ public class FruitGO : MonoBehaviour
 	{
 		if(!isDragged && DragManager.AddFruit(this))
 		{
-			transform.position += new Vector3(0, 0, 1);
 			isDragged = true;
 
 			if(magnet != null)
@@ -45,7 +44,6 @@ public class FruitGO : MonoBehaviour
 	{
 		if(isDragged && DragManager.RemoveFruit(this))
 		{
-			transform.position += new Vector3(0, 0, -1);
 			isDragged = false;
 		}
 	}

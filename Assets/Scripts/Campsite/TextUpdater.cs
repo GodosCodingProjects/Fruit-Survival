@@ -60,16 +60,13 @@ public class TextUpdater : MonoBehaviour
 
 			GameObject foodItem = null;
 
-			// TODO: display the appropriate food
 			if(food < Food.NB_FRUITS)
 			{
-				// TODO: display fruit prefab with appropriate color
 				foodItem = Instantiate(fruitButtonPrefab);
 				SetFruitSprite(food, foodItem);
 			}
 			else
 			{
-				// TODO: display recipe prefab with appropriate colors
 				foodItem = Instantiate(recipeButtonPrefab);
 				SetRecipeColor(food, foodItem);
 			}
@@ -102,7 +99,6 @@ public class TextUpdater : MonoBehaviour
 		int fruit1 = -1;
 		int fruit2 = -1;
 
-		Debug.Log(Food.recipes.Length);
 		for(int n = 0; n < Food.recipes.Length; ++n)
 		{
 			int i = n / Food.NB_FRUITS;

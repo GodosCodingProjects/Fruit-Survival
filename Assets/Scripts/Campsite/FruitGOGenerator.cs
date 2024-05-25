@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FruitGOGenerator : MonoBehaviour
@@ -14,30 +15,46 @@ public class FruitGOGenerator : MonoBehaviour
 
     void Start()
     {
-		for(int i = 0; i < PlayerManager.foodInventory.Count; ++i)
-        {
-            int fruit = PlayerManager.foodInventory[i];
+		Init();
 
-            if(fruit >= Food.NB_FRUITS)
-            {
-                continue;
-            }
-
-			GameObject fruitGO = Instantiate(FruitGO,
-            new Vector3
-            (
-                transform.position.x + (i % columns) * spacing,
-                transform.position.y - (i / columns) * spacing,
-                -2
-            ), Quaternion.identity);
-
-			fruitGO.transform.parent = transform;
-
-            FruitGO fruitScript = fruitGO.GetComponent<FruitGO>();
-            fruitScript.SetType((Food.foods)fruit);
-			SetSprite(fruit, fruitScript);
-		}
+		EventManager.OnBellyChange += ReInit;
     }
+
+	private void Init()
+	{
+		for(int i = 0; i < PlayerManager.foodInventory.Count; ++i)
+		{
+			int fruit = PlayerManager.foodInventory[i];
+
+			if(fruit >= Food.NB_FRUITS)
+			{
+				continue;
+			}
+
+			SpawnFruitAt(
+				fruit,
+				new Vector3
+				(
+					transform.position.x + (i % columns) * spacing,
+					transform.position.y - (i / columns) * spacing,
+					-2
+				)
+			);
+		}
+	}
+
+	public GameObject SpawnFruitAt(int fruit,Vector3 position)
+    {
+		GameObject fruitGO = Instantiate(FruitGO, position, Quaternion.identity);
+
+		fruitGO.transform.parent = transform;
+
+		FruitGO fruitScript = fruitGO.GetComponent<FruitGO>();
+		fruitScript.SetType((Food.foods)fruit);
+		SetSprite(fruit, fruitScript);
+
+        return fruitGO;
+	}
 
     void SetSprite(int fruit, FruitGO fruitScript)
     {
@@ -53,5 +70,28 @@ public class FruitGOGenerator : MonoBehaviour
 		}
 
 		fruitScript.SetSprite(fruitSprites[Food.fruitSprites[fruit]]);
+	}
+
+	void ReInit()
+	{
+		RemoveFruits();
+		Init();
+	}
+
+    void RemoveFruits()
+    {
+		if(transform.childCount == 0)
+			return;
+		FruitGO[] fruitGOs = GetComponentsInChildren<FruitGO>();
+
+        for(int i = 0; i < fruitGOs.Length; ++i)
+        {
+			Destroy(fruitGOs[i].gameObject);
+        }
+    }
+
+	private void OnDestroy()
+	{
+		EventManager.OnBellyChange -= ReInit;
 	}
 }

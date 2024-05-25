@@ -47,14 +47,12 @@ public class PlayerMover : MonoBehaviour
 		bool eventWasTriggered = false;
 
 		float delta = 0;
-		while ((transform.position - position)
-			.sqrMagnitude > Vector3.kEpsilon)
+		while ((transform.position - position).sqrMagnitude > Vector3.kEpsilon)
 		{
 			delta += Time.deltaTime;
 			transform.position =
 				Vector3.Lerp(initialPos, position, delta * speed);
 
-			// TODO: Add real condition to trigger an event
 			// Currently always, for testing purposes
 			if(!eventWasTriggered && delta * speed > 0.5)
 			{
